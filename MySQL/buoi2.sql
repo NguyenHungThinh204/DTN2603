@@ -2,19 +2,19 @@ create database dtn2603_testing_system;
 use dtn2603_testing_system;
 CREATE TABLE department (
     department_id   INT AUTO_INCREMENT PRIMARY KEY,
-    department_name VARCHAR(100)
+    department_name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE `position` (
     position_id   INT AUTO_INCREMENT PRIMARY KEY,
-    position_name ENUM('DEV', 'TEST', 'SCRUM_MASTER', 'PM')
+    position_name ENUM('DEV', 'TEST', 'SCRUM_MASTER', 'PM') NOT NULL
 );
 
 
 CREATE TABLE `account` (
     account_id    INT AUTO_INCREMENT PRIMARY KEY,
-    email         VARCHAR(100) UNIQUE,
-    username      VARCHAR(100) UNIQUE,
+    email         VARCHAR(100) NOT NULL UNIQUE,
+    username      VARCHAR(100) NOT NULL UNIQUE,
     fullname      VARCHAR(100) NOT NULL,
     department_id INT,
     position_id   INT,
