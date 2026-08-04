@@ -94,7 +94,7 @@ VALUES (1, 2), (2, 3), (3, 4), (4, 5), (5, 6),
 SELECT * FROM department; 
 
 -- LẤY RA ID CỦA PHÒNG BAN SALE
-SELECT department_id FROM department; 
+SELECT department_id FROM department WHERE department_name = 'SALE'; 
 
 -- LẤY RA THÔNG TIN ACCOUNT CÓ FULLNAME DÀI NHẤT
 SELECT * FROM `account` WHERE LENGTH(fullname) = 
