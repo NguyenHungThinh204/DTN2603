@@ -142,3 +142,7 @@ email = 'loc.nguyenba@vti.com.vn' WHERE account_id = 5;
 -- UPDATE ACCOUNT CÓ ID = 5 SẼ THUỘC GROUP CÓ ID = 4
 UPDATE group_account SET group_id = 4
 WHERE account_id = 5;
+
+SELECT dep.department_name, count(acc.account_id) AS so_luong FROM department dep
+LEFT JOIN account acc ON dep.department_id = acc.department_id
+GROUP BY dep.department_id, dep.department_name;
