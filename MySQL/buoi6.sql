@@ -13,6 +13,7 @@ DELIMITER ;
 CALL sp_print_account_in_dep('Marketing') ;
 
 -- Tạo store để in ra số lượng account trong mỗi group.
+DROP PROCEDURE IF EXISTS sp_accounts_in_groups;
 DELIMITER $$
 CREATE PROCEDURE
     sp_accounts_in_groups()
@@ -22,7 +23,7 @@ LEFT JOIN account AS a
 ON  g.creator_id = a.account_id
 GROUP BY g.group_id;
 END $$
-DELIMITER;
+DELIMITER ;
 CALL sp_accounts_in_groups();
 
 -- Tạo store để thống kê mỗi type question có bao nhiêu question được tạo
@@ -37,7 +38,7 @@ ON  tq.type_id     = q.type_id
 WHERE MONTH(q.create_date) = MONTH(CURRENT_DATE)
 GROUP BY tq.type_id;
 END $$
-DELIMITER;
+DELIMITER ;
 CALL sp_questions_in_month();
 
 -- Tạo store để trả ra id của type question có nhiều câu hỏi nhất.
@@ -61,7 +62,7 @@ ON  tq.type_id = ctq.type_id
 JOIN cte_max_type_question AS cmt
 ON  ctq.so_luong = cmt.so_luong;
 END $$
-DELIMITER;
+DELIMITER ;
 CALL sp_get_type_question_most_questions(@type_id) ;
 
 -- Sử dụng store ở question 4 để tìm ra tên của type question
@@ -97,7 +98,7 @@ CREATE PROCEDURE
     sp_insert_account(IN p_fullname VARCHAR(100), IN p_email  VARCHAR(100))
 BEGIN DECLARE v_dev_id INT;
 DECLARE v_username VARCHAR(100) ;
-SELECT p.position_id
+SELECT p.position_idf
 INTO v_dev_id
 FROM `position` AS p
 WHERE p.position_name = 'DEV';
@@ -107,7 +108,7 @@ INSERT INTO account(fullname, email, username, position_id)
 VALUES(p_fullname, p_email, v_username, v_dev_id) ;
 SELECT 'Tạo thành công' AS MESSAGE;
 END $$
-DELIMITER;
+DELIMITER ;
 CALL sp_insert_account('manhnguyen' , 'manh1@gmail.com') ;
 
 -- Viết 1 store cho phép người dùng nhập vào Essay hoặc Multiple-Choice
@@ -135,7 +136,7 @@ ON  q.type_id = cq.type_id
 AND LENGTH(q.content) = cq.chieu_dai_content ;
 END IF;
 END $$
-DELIMITER;
+DELIMITER ;
 CALL sp_get_questions_longest_content('essay') ;
 
 -- Viết 1 store cho phép người dùng xóa exam dựa vào ID
@@ -152,7 +153,7 @@ ELSE DELETE FROM exam_question WHERE exam_id = p_exam_id;
 SELECT 'Delete successfully.' AS MESSAGE;
 END IF;
 END $$
-DELIMITER;
+DELIMITER ;
 CALL sp_delete_exam_by_id(1 , @exam_question_deleted , @exam_deleted) ;
 SELECT @exam_question_deleted, @exam_deleted;
 
@@ -187,7 +188,7 @@ END LOOP;
 CLOSE exam_cursor;
 SELECT v_exam_question_total_deleted AS so_luong_exam_question_deleted, v_exam_total_deleted AS so_luong_exam_deleted;
 END $$
-DELIMITER;
+DELIMITER ;
 CALL sp_delete_exams_3_years_ago();
 
 -- Viết store cho phép người dùng xóa phòng ban bằng cách
@@ -214,7 +215,7 @@ WHERE department_id = v_department_id;
 COMMIT; SELECT 'Delete successfully' AS MESSAGE;
 END IF;
 END $$
-DELIMITER;
+DELIMITER ;
 CALL sp_delete_department_by_name('Sale') ;
 
 --  Viết store để in ra mỗi tháng có bao nhiêu câu hỏi được tạo trong năm nay
@@ -235,7 +236,7 @@ AND YEAR(q.create_date) = YEAR()
 GROUP BY m.month_no
 ORDER BY m.month_no;
 END $$
-DELIMITER;
+DELIMITER ;
 CALL sp_get_created_question_per_month();
 
 -- Viết store để in ra mỗi tháng có bao nhiêu câu hỏi được tạo trong 6 tháng gần đây nhất
@@ -256,4 +257,4 @@ END $$
 
 DELIMITER ;
 
-call sp_get_question_six_months_recently();
+CALL sp_get_question_six_months_recently();
