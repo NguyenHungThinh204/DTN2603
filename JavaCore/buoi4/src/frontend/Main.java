@@ -1,0 +1,45 @@
+package frontend;
+
+import backend.QuanLySach;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        QuanLySach quanLySach = new QuanLySach();
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.println("\n========== QUẢN LÝ THƯ VIỆN ==========");
+            System.out.println("1. Thêm tài liệu");
+            System.out.println("2. Xoá tài liệu");
+            System.out.println("3. Hiển thị tất cả tài liệu");
+            System.out.println("4. Tìm kiếm tài liệu theo loại");
+            System.out.println("5. Thoát chương trình");
+            System.out.println("=============================================");
+            System.out.print("Chọn chức năng: ");
+
+            choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    quanLySach.themTaiLieu();
+                    break;
+                case 2:
+                    quanLySach.xoaTaiLieuTheoMa();
+                    break;
+                case 3:
+                    quanLySach.hienThiTatCaTaiLieu();
+                    break;
+                case 4:
+                    quanLySach.timKiemTheoLoai();
+                    break;
+                case 5:
+                    System.out.println("Thoát");
+                    break;
+                default:
+                    System.out.println("Vui lòng chọn lại.");
+            }
+        } while (choice != 5);
+        scanner.close();
+    }
+}

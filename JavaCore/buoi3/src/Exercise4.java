@@ -22,8 +22,8 @@ public class Exercise4 {
         String s1 = scanner.nextLine();
         System.out.print("Nhập s2: ");
         String s2 = scanner.nextLine();
-        String result = s1 + s2;
-        System.out.println("Kết quả: " + result);
+        StringBuilder s = new StringBuilder().append(s1).append(s2);
+        System.out.println("Kết quả: " + s);
     }
 
     // Question 3
