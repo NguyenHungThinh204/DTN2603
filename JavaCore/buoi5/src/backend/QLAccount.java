@@ -14,11 +14,11 @@ public class QLAccount implements IQLAccount{
 
     @Override
     public void hienThiAccount() {
-        String url = "jdbc:mysql://localhost:3306/testing_system";
-        String username = "root";
-        String password = "123456";
+        String url = "jdbc:mysql://localhost:3306/dtn2603_testing_system";
+        String dbUsername = "root";
+        String dbPassword = "root";
         try{
-            Connection connection = DriverManager.getConnection(url, username, password);
+            Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword);
             if (connection != null) {
                 System.out.println("Kết nối DB thành công");
             } else {
@@ -43,7 +43,6 @@ public class QLAccount implements IQLAccount{
             }
         } catch (SQLException e) {
             System.out.println("Kết nối DB thất bại!");
-            e.printStackTrace();
         }
 
         System.out.println("+---------------+-------------------------+---------------+-------------------------+---------------+---------------+---------------+");
@@ -59,6 +58,81 @@ public class QLAccount implements IQLAccount{
         System.out.println("+---------------+-------------------------+---------------+-------------------------+---------------+---------------+---------------+");
     }
 
+    //Them
+    @Override
+    public void themAccount(Account account) {
+        String url = "jdbc:mysql://localhost:3306/dtn2603_testing_system";
+        String dbUsername = "root";
+        String dbPassword = "root";
+        try {
+            Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword);
+            String sql = "INSERT INTO `Account` " + "(email, username, fullname, department_id, position_id, create_date) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, account.getEmail());
+            preparedStatement.setString(2, account.getUsername());
+            preparedStatement.setString(3, account.getFullName());
+            preparedStatement.setInt(4, account.getDepartmentId());
+            preparedStatement.setInt(5, account.getPositionId());
+            preparedStatement.setDate(6, Date.valueOf(account.getCreateDate()));
+            int result = preparedStatement.executeUpdate();
+            if (result > 0) {
+                System.out.println("Them Account thanh cong!");
+            }
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Them Account that bai!");
+        }
+    }
+
+    // XÓA
+
+    @Override
+    public void xoaAccount(int accountId) {
+        String url = "jdbc:mysql://localhost:3306/dtn2603_testing_system";
+        String dbUsername = "root";
+        String dbPassword = "root";
+        try {
+            Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword);
+            String sql = "DELETE FROM `Account` WHERE account_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, accountId);
+            int result = preparedStatement.executeUpdate();
+            if (result > 0) {
+                System.out.println("Xoa Account thanh cong!");
+            } else {
+                System.out.println("Khong tim thay Account co ID = " + accountId);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Xoa Account that bai!");
+        }
+    }
+
+    // SỬA
+
+    @Override
+    public void suaUsername(int accountId, String usernameMoi) {
+        String url = "jdbc:mysql://localhost:3306/dtn2603_testing_system";
+        String dbUsername = "root";
+        String dbPassword = "root";
+        try {
+            Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword);
+            String sql = "UPDATE `Account` " + "SET username = ? " + "WHERE account_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, usernameMoi);
+            preparedStatement.setInt(2, accountId);
+            int result = preparedStatement.executeUpdate();
+            if (result > 0) {
+                System.out.println("Sua username thanh cong!");
+            } else {
+                System.out.println("Khong tim thay Account co ID = " + accountId);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Sua username that bai!");
+        }
+    }
     public static void main(String[] args) throws SQLException {
         QLAccount qlAccount = new QLAccount();
         qlAccount.hienThiAccount();
