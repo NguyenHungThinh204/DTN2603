@@ -20,4 +20,6 @@ public interface IAccountRepository {
     boolean checkTonTaiUserNameThem(String userName);
 
     boolean checkTonTaiUserNameSua(Integer accountId, String userName);
+
+    boolean themListAccount(List<Account> accounts);
 }

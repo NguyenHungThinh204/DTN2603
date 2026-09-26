@@ -1,6 +1,7 @@
 package entity;
 import java.time.LocalDate;
-
+import backend.controller.DepartmentController;
+import backend.controller.PostionController;
 public class Account {
     private Integer accountId;
     private String email;
@@ -10,6 +11,8 @@ public class Account {
     private Postion postion;
     private LocalDate createDate;
     private String gender;
+    private DepartmentController departmentController = new DepartmentController();
+    private PostionController postionController = new PostionController();
 
     public Account(String gender, LocalDate createDate, Department department, String email, String fullName, String userName, Integer accountId, Postion postion) {
         this.gender = gender;
@@ -24,6 +27,14 @@ public class Account {
     public void hienThiTheoDong(){
         System.out.printf("|%-10s|%-35s|%-15s|%-20s|%-10s|%-10s|%-20s|%-10s|\n",this.accountId,this.email,this.userName,this.fullName,this.department.getDepartmentId(),this.postion.getPostionId(),this.createDate,this.gender);
 
+    }
+    public Account(String email, String userName, String fullName, Integer departmentId, Integer postionId, String gender) {
+        this.email = email;
+        this.userName = userName;
+        this.fullName = fullName;
+        this.department = this.departmentController.getDepartmentById(departmentId);
+        this.postion = this.postionController.getPostionById(postionId);
+        this.gender = gender;
     }
     public Account() {
     }

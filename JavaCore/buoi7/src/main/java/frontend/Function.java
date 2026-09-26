@@ -5,7 +5,7 @@ import backend.controller.PostionController;
 import entity.Account;
 import entity.Department;
 import entity.Postion;
-
+import common.StringCommon;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,7 +43,7 @@ public class Function {
             email=sc.nextLine();
             if(!this.checkLength(email,6,100))
                 continue;
-            if(!email.trim().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+            if(!email.trim().matches(StringCommon.EMAIL_REGEX)) {
                 System.err.println("Nhập sai định dạng mail");
                 continue;
             }
@@ -248,5 +248,20 @@ public class Function {
                 default:System.err.println("Nhập sai nhập lại"); continue;
             }
         }
+    }
+
+    private void importCSV() {
+        String url;
+        while (true) {
+            System.out.println("Nhập đường dẫn file csv muốn  import:");//D:\FITHOU_23\VTI Academy\java_core\csv\input_account.csv
+            url=sc.nextLine();
+            if (!url.endsWith(".csv")) {
+                System.out.println( "File không đúng định dạng!!");
+                continue;
+            }
+            break;
+        }
+        String message=accountController.importCSV(url);
+        System.out.println(message);
     }
 }

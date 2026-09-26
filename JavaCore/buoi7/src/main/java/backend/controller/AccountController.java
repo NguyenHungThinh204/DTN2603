@@ -41,4 +41,7 @@ public class AccountController {
     public boolean checkTonTaiUserNameSua(Integer accountId, String userName) {
         return service.checkTonTaiUserNameSua(accountId,userName);
     }
+    public String importCSV(String url) {
+        return service.importCSV(url);
+    }
 }

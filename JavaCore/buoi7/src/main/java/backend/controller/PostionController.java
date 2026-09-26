@@ -13,7 +13,7 @@ public class PostionController {
     public boolean kiemTraTonTaiPostionId(Integer positionId) {
         return positionService.kiemTraTonTaiPostionId(positionId);
     }
-    Postion getPostionById(int positionId){
+    public Postion getPostionById(int positionId){
         return positionService.getPostionById(positionId);
     }
 

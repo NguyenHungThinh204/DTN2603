@@ -20,4 +20,6 @@ public interface IAccountService {
     boolean checkTonTaiUserNameThem(String userName);
 
     boolean checkTonTaiUserNameSua(Integer accountId, String userName);
+
+    String importCSV(String url);
 }
