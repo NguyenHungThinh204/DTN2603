@@ -20,4 +20,8 @@ public class DepartmentController {
     public List<Department> getDepartments() {
         return departmentService.getDepartments();
     }
+
+    public String importDepartmentCSV(String url) {
+        return departmentService.importDepartmentCSV(url);
+    }
 }

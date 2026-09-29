@@ -264,4 +264,19 @@ public class Function {
         String message=accountController.importCSV(url);
         System.out.println(message);
     }
+
+    private void importCSVDepartment() {
+        String url;
+        while (true) {
+            System.out.println("Nhập đường dẫn file csv muốn  import:");//D:\FITHOU_23\VTI Academy\java_core\csv\input_department.csv
+            url=sc.nextLine();
+            if (!url.endsWith(".csv")) {
+                System.out.println( "File không đúng định dạng!!");
+                continue;
+            }
+            break;
+        }
+        String message=departmentController.importDepartmentCSV(url);
+        System.out.println(message);
+    }
 }

@@ -8,4 +8,6 @@ public interface IDepartmentService {
     boolean kiemTraTonTaiDepartmentId(Integer departmentId);
     Department getDepartmentById(int departmentId);
     List<Department> getDepartments();
+
+    String importDepartmentCSV(String url);
 }

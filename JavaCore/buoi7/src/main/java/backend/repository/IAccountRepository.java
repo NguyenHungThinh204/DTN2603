@@ -21,5 +21,5 @@ public interface IAccountRepository {
 
     boolean checkTonTaiUserNameSua(Integer accountId, String userName);
 
-    boolean themListAccount(List<Account> accounts);
+    void themListAccount(List<Account> accounts);
 }
